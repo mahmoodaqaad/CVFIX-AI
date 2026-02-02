@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 export function ThemeToggle() {
     const [mounted, setMounted] = useState(false);
+    const [theme, setTheme] = useState<"light" | "dark">("light");
 
     useEffect(() => {
         setMounted(true);
@@ -19,6 +20,7 @@ export function ThemeToggle() {
         const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         const initialTheme = savedTheme || systemTheme;
 
+        setTheme(initialTheme);
         if (initialTheme === "dark") {
             document.documentElement.classList.add("dark");
         } else {
@@ -27,14 +29,14 @@ export function ThemeToggle() {
     }, [mounted]);
 
     const toggleTheme = () => {
-        const isDark = document.documentElement.classList.contains("dark");
-
-        if (isDark) {
+        if (theme === "dark") {
             document.documentElement.classList.remove("dark");
             localStorage.setItem("theme", "light");
+            setTheme("light");
         } else {
             document.documentElement.classList.add("dark");
             localStorage.setItem("theme", "dark");
+            setTheme("dark");
         }
     };
 
@@ -45,15 +47,13 @@ export function ThemeToggle() {
         );
     }
 
-    const isDark = typeof window !== "undefined" && document.documentElement.classList.contains("dark");
-
     return (
         <button
             onClick={toggleTheme}
             className="p-2 rounded-lg bg-secondary hover:bg-accent transition-all duration-300 hover:scale-105"
             aria-label="Toggle theme"
         >
-            {isDark ? (
+            {theme === "dark" ? (
                 <Sun className="w-5 h-5 text-foreground" />
             ) : (
                 <Moon className="w-5 h-5 text-foreground" />

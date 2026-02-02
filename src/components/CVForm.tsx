@@ -167,42 +167,42 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
                             placeholder={t.placeholders.fullName}
                             value={cvData.personalInfo.fullName}
                             onChange={handlePersonalInfoChange}
-                            className="p-2 border rounded"
+                            className="p-2 border border-input rounded bg-background text-foreground"
                         />
                         <input
                             name="email"
                             placeholder={t.placeholders.email}
                             value={cvData.personalInfo.email}
                             onChange={handlePersonalInfoChange}
-                            className="p-2 border rounded"
+                            className="p-2 border border-input rounded bg-background text-foreground"
                         />
                         <input
                             name="phone"
                             placeholder={t.placeholders.phone}
                             value={cvData.personalInfo.phone}
                             onChange={handlePersonalInfoChange}
-                            className="p-2 border rounded"
+                            className="p-2 border border-input rounded bg-background text-foreground"
                         />
                         <input
                             name="location"
                             placeholder={t.placeholders.location}
                             value={cvData.personalInfo.location}
                             onChange={handlePersonalInfoChange}
-                            className="p-2 border rounded"
+                            className="p-2 border border-input rounded bg-background text-foreground"
                         />
                         <input
                             name="linkedin"
                             placeholder={t.placeholders.linkedin}
                             value={cvData.personalInfo.linkedin || ""}
                             onChange={handlePersonalInfoChange}
-                            className="p-2 border rounded"
+                            className="p-2 border border-input rounded bg-background text-foreground"
                         />
                         <input
                             name="portfolio"
                             placeholder={t.placeholders.portfolio}
                             value={cvData.personalInfo.portfolio || ""}
                             onChange={handlePersonalInfoChange}
-                            className="p-2 border rounded"
+                            className="p-2 border border-input rounded bg-background text-foreground"
                         />
                     </div>
                 )}
@@ -253,38 +253,38 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
                                         placeholder={t.placeholders.jobTitle}
                                         value={exp.title}
                                         onChange={(e) => handleArrayChange("experience", index, "title", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.company}
                                         value={exp.company}
                                         onChange={(e) => handleArrayChange("experience", index, "company", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.startDate}
                                         value={exp.startDate}
                                         onChange={(e) => handleArrayChange("experience", index, "startDate", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.endDate}
                                         value={exp.endDate}
                                         onChange={(e) => handleArrayChange("experience", index, "endDate", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.location}
                                         value={exp.location}
                                         onChange={(e) => handleArrayChange("experience", index, "location", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                 </div>
                                 <textarea
                                     placeholder={t.placeholders.description}
                                     value={exp.description.join('\n')}
                                     onChange={(e) => handleSplittedArrayChange("experience", index, e.target.value)}
-                                    className="w-full h-24 p-2 border rounded text-sm"
+                                    className="w-full h-24 p-2 border border-input rounded text-sm bg-background text-foreground"
                                 />
                             </div>
                         ))}
@@ -322,25 +322,25 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
                                         placeholder={t.placeholders.degree}
                                         value={edu.degree}
                                         onChange={(e) => handleArrayChange("education", index, "degree", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.institution}
                                         value={edu.institution}
                                         onChange={(e) => handleArrayChange("education", index, "institution", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.graduationDate}
                                         value={edu.graduationDate}
                                         onChange={(e) => handleArrayChange("education", index, "graduationDate", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                     <input
                                         placeholder={t.placeholders.gpa}
                                         value={edu.gpa || ""}
                                         onChange={(e) => handleArrayChange("education", index, "gpa", e.target.value)}
-                                        className="p-2 border rounded"
+                                        className="p-2 border border-input rounded bg-background text-foreground"
                                     />
                                 </div>
                             </div>
@@ -369,7 +369,7 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
                         <textarea
                             value={cvData.skills.join(", ")}
                             onChange={(e) => setCvData(prev => ({ ...prev, skills: e.target.value.split(",").map(s => s.trim()) }))}
-                            className="w-full h-32 p-2 border rounded"
+                            className="w-full h-32 p-2 border border-input rounded bg-background text-foreground"
                             placeholder={t.placeholders.skills}
                         />
                     </div>
@@ -400,7 +400,7 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
                                     <input
                                         value={section.title}
                                         onChange={(e) => handleArrayChange("customSections", sIndex, "title", e.target.value)}
-                                        className="w-full p-2 border rounded font-semibold"
+                                        className="w-full p-2 border border-input rounded font-semibold bg-background text-foreground"
                                         placeholder="e.g., Volunteering, Awards"
                                     />
                                 </div>
@@ -419,19 +419,19 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
                                                     placeholder={t.placeholders.itemTitle}
                                                     value={item.title}
                                                     onChange={(e) => handleCustomItemChange(sIndex, iIndex, "title", e.target.value)}
-                                                    className="p-2 border rounded text-sm font-medium"
+                                                    className="p-2 border border-input rounded text-sm font-medium bg-background text-foreground"
                                                 />
                                                 <input
                                                     placeholder={t.placeholders.dateSubtitle}
                                                     value={item.date || ""}
                                                     onChange={(e) => handleCustomItemChange(sIndex, iIndex, "date", e.target.value)}
-                                                    className="p-2 border rounded text-sm"
+                                                    className="p-2 border border-input rounded text-sm bg-background text-foreground"
                                                 />
                                                 <textarea
                                                     placeholder={t.placeholders.description}
                                                     value={item.description}
                                                     onChange={(e) => handleCustomItemChange(sIndex, iIndex, "description", e.target.value)}
-                                                    className="p-2 border rounded text-sm h-16"
+                                                    className="p-2 border border-input rounded text-sm h-16 bg-background text-foreground"
                                                 />
                                             </div>
                                         </div>

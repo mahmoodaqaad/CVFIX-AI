@@ -72,7 +72,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className={cn("min-h-full bg-gray-50 pb-20", language === 'ar' ? 'rtl' : 'ltr')} dir={language === 'ar' ? 'rtl' : 'ltr'}>
+    <div className={cn("min-h-full bg-background pb-20", language === 'ar' ? 'rtl' : 'ltr')} dir={language === 'ar' ? 'rtl' : 'ltr'}>
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-12 relative">
 
@@ -80,7 +80,7 @@ export default function HomePage() {
         <div className="absolute top-4 right-4 z-10">
           <button
             onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-1 bg-white border border-gray-300 rounded hover:bg-gray-100 transition-colors"
+            className="flex items-center gap-2 px-3 py-1 bg-card border border-border rounded hover:bg-accent transition-colors text-foreground"
           >
             <Globe className="w-4 h-4" />
             <span className="font-medium text-sm">{language === 'ar' ? 'English' : 'العربية'}</span>
@@ -88,16 +88,16 @@ export default function HomePage() {
         </div>
 
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-blue-100 text-blue-700 mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded bg-primary/10 text-primary mb-4">
             <FileText className="w-4 h-4" />
             <span className="text-sm font-medium">{t.hero.tag}</span>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-gray-900">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
             {t.hero.title}
           </h1>
 
-          <p className="text-lg text-gray-600 mb-8">
+          <p className="text-lg text-muted-foreground mb-8">
             {t.hero.subtitle}
           </p>
         </div>
@@ -110,8 +110,8 @@ export default function HomePage() {
               className={cn(
                 "px-4 py-2 rounded font-medium transition-all flex items-center gap-2 border",
                 inputMode === "ai"
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-muted-foreground border-border hover:bg-accent"
               )}
             >
               <FileText className="w-4 h-4" />
@@ -125,8 +125,8 @@ export default function HomePage() {
               className={cn(
                 "px-4 py-2 rounded font-medium transition-all flex items-center gap-2 border",
                 inputMode === "manual"
-                  ? "bg-white text-blue-600 border-blue-600"
-                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-50"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card text-muted-foreground border-border hover:bg-accent"
               )}
             >
               <PenTool className="w-4 h-4" />
@@ -134,18 +134,18 @@ export default function HomePage() {
             </button>
           </div>
 
-          <div className="bg-white border border-gray-200 rounded shadow-sm p-6" id="cv-form-section">
+          <div className="bg-card border border-border rounded shadow-sm p-6" id="cv-form-section">
             {/* Input Section */}
             {inputMode === "ai" ? (
               <div className="mb-6">
-                <label className="block text-sm font-bold text-gray-700 mb-2">
+                <label className="block text-sm font-bold text-foreground mb-2">
                   {t.labels.cvInfo}
                 </label>
                 <textarea
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
                   placeholder={t.placeholders.textInput}
-                  className="w-full h-80 px-3 py-2 bg-white border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 font-mono text-sm"
+                  className="w-full h-80 px-3 py-2 bg-background border border-input rounded focus:outline-none focus:ring-1 focus:ring-primary font-mono text-sm text-foreground"
                   dir="auto"
                 />
                 <button
@@ -153,7 +153,7 @@ export default function HomePage() {
                   disabled={!inputText.trim() || isProcessing}
                   className={cn(
                     "w-full mt-4 py-3 rounded font-bold transition-all",
-                    "bg-blue-600 text-white hover:bg-blue-700",
+                    "bg-primary text-primary-foreground hover:bg-primary/90",
                     "disabled:opacity-50 disabled:cursor-not-allowed",
                     "flex items-center justify-center gap-2"
                   )}
@@ -174,10 +174,10 @@ export default function HomePage() {
             ) : (
               <div className="mb-6">
                 <div className="flex justify-between items-center mb-4">
-                  <label className="block text-lg font-bold text-gray-800">
+                  <label className="block text-lg font-bold text-foreground">
                     {t.labels.manualEntryTitle}
                   </label>
-                  <button onClick={resetData} className="text-red-600 hover:bg-red-50 px-3 py-1 rounded text-sm flex items-center gap-1 border border-transparent hover:border-red-100">
+                  <button onClick={resetData} className="text-destructive hover:bg-destructive/10 px-3 py-1 rounded text-sm flex items-center gap-1 border border-transparent hover:border-destructive/20">
                     <Eraser className="w-4 h-4" /> {t.buttons.clearAll}
                   </button>
                 </div>
@@ -193,17 +193,17 @@ export default function HomePage() {
             id="cv-preview"
             className="max-w-5xl mx-auto mt-10"
           >
-            <div className="bg-white border border-gray-200 rounded shadow-sm p-6">
+            <div className="bg-card border border-border rounded shadow-sm p-6">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-bold flex items-center gap-2 text-gray-800">
-                  <Eye className="w-5 h-5 text-gray-600" />
+                <h2 className="text-xl font-bold flex items-center gap-2 text-foreground">
+                  <Eye className="w-5 h-5 text-muted-foreground" />
                   {t.labels.preview}
                 </h2>
                 <div className="flex gap-2">
                   {inputMode === "ai" && (
                     <button
                       onClick={switchToManual}
-                      className="px-3 py-2 rounded border border-blue-600 text-blue-600 hover:bg-blue-50 transition-all flex items-center gap-2 font-medium text-sm"
+                      className="px-3 py-2 rounded border border-primary text-primary hover:bg-primary/5 transition-all flex items-center gap-2 font-medium text-sm"
                     >
                       <PenTool className="w-4 h-4" />
                       {t.buttons.editData}
@@ -220,7 +220,7 @@ export default function HomePage() {
               </div>
 
               {/* CV Template Preview */}
-              <div className="border border-gray-300 rounded overflow-hidden">
+              <div className="border border-border rounded overflow-hidden">
                 <CVTemplate data={cvData} language={language} />
               </div>
             </div>

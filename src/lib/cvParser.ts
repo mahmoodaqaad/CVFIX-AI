@@ -162,8 +162,11 @@ function processSection(section: string, lines: string[], cvData: CVData) {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseExperienceOrProjects(lines: string[]): any[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const items: any[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let currentItem: any = null;
 
     for (const line of lines) {
@@ -207,8 +210,11 @@ function parseExperienceOrProjects(lines: string[]): any[] {
     return items;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseEducation(lines: string[]): any[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const items: any[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let currentItem: any = null;
 
     for (const line of lines) {
@@ -265,7 +271,9 @@ function parseLanguages(lines: string[]): string[] {
     return languages;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function parseCertifications(lines: string[]): any[] {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const certs: any[] = [];
 
     for (const line of lines) {

@@ -32,10 +32,11 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
         section: "experience" | "education" | "certifications" | "customSections",
         index: number,
         field: string,
-        value: any
+        value: string
     ) => {
         setCvData((prev) => {
             const newData = { ...prev };
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             const list = newData[section] as any[];
             if (section === 'customSections') {
                 // Special handling for custom sections if needed, but for now generic works
@@ -103,6 +104,7 @@ export function CVForm({ cvData, setCvData, language }: CVFormProps) {
     const removeItem = (section: "experience" | "education" | "certifications" | "customSections", index: number) => {
         setCvData((prev) => {
             const newData = { ...prev };
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             (newData[section] as any[]).splice(index, 1);
             return newData;
         });

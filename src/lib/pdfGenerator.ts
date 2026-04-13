@@ -11,8 +11,8 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
 
     // Create a temporary container for processing
     const container = document.createElement("div");
-    container.style.position = "fixed"; // Use fixed to ensure it's in the viewport context
-    container.style.left = "-1000vw"; // Move far left
+    container.style.position = "absolute"; // Use absolute instead of fixed
+    container.style.left = "-9999px"; // Move far left using px, not vw, to avoid mobile browser limit issues
     container.style.top = "0";
     container.style.width = "210mm";
     container.style.zIndex = "-9999";
@@ -94,8 +94,9 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
         const page = pages[i];
 
         try {
+            const isMobile = window.innerWidth < 768;
             const canvas = await html2canvas(page, {
-                scale: window.innerWidth < 768 ? 1.5 : 2, // Slightly lower scale on mobile to save memory
+                scale: isMobile ? 1.5 : 2, // Slightly lower scale on mobile to save memory
                 useCORS: true,
                 logging: false,
                 backgroundColor: "#ffffff",
@@ -104,7 +105,7 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
                 scrollY: 0,
             });
 
-            const imgData = canvas.toDataURL("image/jpeg", 0.9); // Use JPEG with quality 0.9 to reduce size
+            const imgData = canvas.toDataURL("image/jpeg", isMobile ? 0.8 : 0.9); // Use JPEG with slightly lower quality on mobile
 
             if (i > 0) {
                 pdf.addPage();
@@ -114,17 +115,42 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
         } catch (err) {
             console.error(`Error rendering page ${i}:`, err);
             // Fallback: try with lower scale if it failed
-            const canvas = await html2canvas(page, {
-                scale: 1,
-                useCORS: true,
-                backgroundColor: "#ffffff",
-            });
-            const imgData = canvas.toDataURL("image/jpeg", 0.8);
-            if (i > 0) pdf.addPage();
-            pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
+            try {
+                const canvas = await html2canvas(page, {
+                    scale: 1, // Fallback to 1
+                    useCORS: true,
+                    logging: false,
+                    backgroundColor: "#ffffff",
+                    allowTaint: true,
+                    scrollX: 0,
+                    scrollY: 0,
+                });
+                const imgData = canvas.toDataURL("image/jpeg", 0.7);
+                if (i > 0) pdf.addPage();
+                pdf.addImage(imgData, "JPEG", 0, 0, 210, 297);
+            } catch (fallbackErr) {
+                console.error(`Fallback error rendering page ${i}:`, fallbackErr);
+                throw new Error("فشل إنشاء ملف PDF. يرجى المحاولة من جهاز حاسوب.");
+            }
         }
     }
 
-    pdf.save(fileName);
-    document.body.removeChild(container);
+    try {
+        pdf.save(fileName);
+    } catch (saveError) {
+        console.error("Error saving PDF:", saveError);
+        // Fallback for mobile devices if save fails
+        try {
+            const blob = pdf.output("blob");
+            const url = URL.createObjectURL(blob);
+            window.open(url, "_blank");
+        } catch (blobError) {
+            console.error("Error outputting blob:", blobError);
+            throw new Error("لا يمكن حفظ الملف على هذا الهاتف.");
+        }
+    } finally {
+        if (container && container.parentNode) {
+            document.body.removeChild(container);
+        }
+    }
 }

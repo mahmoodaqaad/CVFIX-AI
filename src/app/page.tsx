@@ -84,7 +84,7 @@ export default function HomePage() {
             className="flex items-center gap-2 px-3 py-1 bg-card border border-border rounded hover:bg-accent transition-colors text-foreground"
           >
             <Globe className="w-4 h-4" />
-            <span className="font-medium text-sm">{language === 'ar' ? 'English' : 'العربية'}</span>
+            <span className="font-medium text-sm">{language === 'ar' ? 'English' : 'العربية العامية'}</span>
           </button>
         </div>
 

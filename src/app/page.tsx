@@ -39,14 +39,19 @@ export default function HomePage() {
       document.getElementById("cv-preview")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
-
   const handleDownloadPDF = async () => {
     try {
-      await generatePDF("cv-template", `${cvData.personalInfo.fullName || "resume"}.pdf`);
+      const pdf = await generatePDF("cv-template");
+
+      if (!pdf) {
+        throw new Error("PDF generation failed");
+      }
+
+      pdf.save("resume.pdf");
+
     } catch (error) {
       console.error("Error generating PDF:", error);
-      const errorMessage = error instanceof Error ? error.message : "حدث خطأ غير معروف";
-      alert(`حدث خطأ: ${errorMessage} \n يرجى المحاولة مرة أخرى.`);
+      alert("فشل إنشاء PDF، حاول من جديد أو من جهاز كمبيوتر");
     }
   };
 

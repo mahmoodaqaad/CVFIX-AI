@@ -153,4 +153,5 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
             document.body.removeChild(container);
         }
     }
+    return pdf;
 }

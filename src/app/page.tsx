@@ -39,19 +39,13 @@ export default function HomePage() {
       document.getElementById("cv-preview")?.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
+
   const handleDownloadPDF = async () => {
     try {
-      const pdf = await generatePDF("cv-template");
-
-      if (!pdf) {
-        throw new Error("PDF generation failed");
-      }
-
-      pdf.save("resume.pdf");
-
+      await generatePDF("cv-template", `${cvData.personalInfo.fullName || "resume"}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
-      alert("فشل إنشاء PDF، حاول من جديد أو من جهاز كمبيوتر");
+      alert("حدث خطأ في إنشاء ملف PDF. يرجى المحاولة مرة أخرى.");
     }
   };
 
@@ -89,7 +83,7 @@ export default function HomePage() {
             className="flex items-center gap-2 px-3 py-1 bg-card border border-border rounded hover:bg-accent transition-colors text-foreground"
           >
             <Globe className="w-4 h-4" />
-            <span className="font-medium text-sm">{language === 'ar' ? 'English' : 'العربية العامية'}</span>
+            <span className="font-medium text-sm">{language === 'ar' ? 'English' : 'العربية'}</span>
           </button>
         </div>
 

@@ -11,8 +11,8 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
 
     // Create a temporary container for processing
     const container = document.createElement("div");
-    container.style.position = "absolute"; // Use absolute instead of fixed
-    container.style.left = "-9999px"; // Move far left using px, not vw, to avoid mobile browser limit issues
+    container.style.position = "absolute"; 
+    container.style.left = "0"; // Kept within viewport to prevent mobile skipping layout or throwing off-screen bounds error
     container.style.top = "0";
     container.style.width = "210mm";
     container.style.zIndex = "-9999";
@@ -96,16 +96,16 @@ export async function generatePDF(elementId: string, fileName: string = "resume.
         try {
             const isMobile = window.innerWidth < 768;
             const canvas = await html2canvas(page, {
-                scale: isMobile ? 1.5 : 2, // Slightly lower scale on mobile to save memory
+                scale: isMobile ? 1 : 2, // Drastically lower scale to 1 on mobile to ensure memory quota is not exceeded
                 useCORS: true,
                 logging: false,
                 backgroundColor: "#ffffff",
-                allowTaint: true,
+                allowTaint: false, // Disabling allowTaint, can cause errors on mobile export
                 scrollX: 0,
                 scrollY: 0,
             });
 
-            const imgData = canvas.toDataURL("image/jpeg", isMobile ? 0.8 : 0.9); // Use JPEG with slightly lower quality on mobile
+            const imgData = canvas.toDataURL("image/jpeg", isMobile ? 0.8 : 0.9);
 
             if (i > 0) {
                 pdf.addPage();

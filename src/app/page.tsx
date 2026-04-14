@@ -45,7 +45,8 @@ export default function HomePage() {
       await generatePDF("cv-template", `${cvData.personalInfo.fullName || "resume"}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
-      alert("حدث خطأ في إنشاء ملف PDF. يرجى المحاولة مرة أخرى.");
+      const errorMessage = error instanceof Error ? error.message : "حدث خطأ غير معروف";
+      alert(`حدث خطأ: ${errorMessage} \n يرجى المحاولة مرة أخرى.`);
     }
   };
 
